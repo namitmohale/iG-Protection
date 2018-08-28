@@ -1,0 +1,2 @@
+include ':newhandwaveapp', ':HandGestureWorkingAndroid'
+include ':openCVLibrary310'
