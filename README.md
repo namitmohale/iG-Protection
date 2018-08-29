@@ -1,24 +1,29 @@
+iG Protection is short for Image Gesture Protection which uses OpenCV and Handwave to take gesture inputs from front facing camera and use them to make a unique encryption key to be used to encrypt target data file using Blowfish symmetric key encryption Algorithm. To run the project, you need an android phone and android studio to build the app.
+
+How to build and run the app:
+
+1. Load the project in Android Studio.
+
+2. Build the app.
+
+3. Copy the app in your android phone.
+
+4. Make sure that Installation from Unknown Sources is checked in the phone.
+
+5. Install the app and run.
+
+6. After opening the app, provide a combination of up to 5 gestures (left, right, up or down), which you can see being recorded in the phone.
+
+7. Then select the file that need to be encrypted, which then gets saved in the 'gesture' folder in the root directory.
+
+8. To decrypt the file, select the file from the Home menu of the app, provide the same gestures as provided to encrypt the file.
+
+9. After decryption, the unlocked file is saved in 'gesture_unlock' folder in the root directory.
+
+
 # NewHandwave
 
-All Credit for the C files Goes to the original Kritts/Handwave Repo
-
 Handwave was originally intended to be a library that would use a phone's front facing camera to detect a gesture that happens overtop the phone. Generally done with your hand, you can wave your hand up, down, left, right, and further out then towards your phone which registers as a click. The motions are simplified to implement in your project with an interface that may be passed in via parameters. See the usage examples below.
-
-I have made a big update in improving the methodology used in the original library (it is a library now and not a project).
-
-The Library now uses a programmatic instance of JavaCameraView (newer) instead of CameraBridgeViewBase
-
-The sensing of motion is now more accurate (opposed to swiping up and it picks up left/right more easily). 
-
-I have added convenience methods for initializing when imported as a library and checking permissions > Android M. 
-
-I have accounted for OpenCVManager not loading the correct version of OpenCV.
-
-Added pass filters for better accuracy
-
-For more compare this with https://github.com/kritts/HandWave
-
-
 
 Usage on a seperate project:
 
@@ -32,113 +37,10 @@ Usage on a seperate project:
 
 5. Right Click your app module -> Open Module Settings
 
-6. Click the dependencies tab 
+6. Click the dependencies tab
 
 7. Click the + icon and select the module option
 
 8. Add Both the openCV module and the NewHandwave module
 
-9. The library is now usable in your project (See below for instructions)
-
-
-
-Manifest:
-
-      <uses-permission android:name="android.permission.CAMERA" />
-
-
-Activity/Fragment usage:
-
-            YourActivity implements CameraGestureSensor.Listener, ClickSensor.Listener
-
-                  @Override
-                protected void onCreate(Bundle savedInstanceState) {
-                    super.onCreate(savedInstanceState);
-                    setContentView(R.layout.activity_main);
-                    if (PermissionUtility.checkCameraPermission(this)) {
-                        //The third passing in represents a separate click sensor which is not required if you just want the hand motions
-                        LocalOpenCV loader = new LocalOpenCV(YourActivity.this, YourActivity.this, YourActivity.this);
-                    }
-                }
-
-                    @Override
-                      public void onResume() {
-                          super.onResume();
-                          if (PermissionUtility.checkCameraPermission(this)) {
-                              LocalOpenCV loader = new LocalOpenCV(YourActivity.this, YourActivity.this, YourActivity.this);
-                          }
-                      }
-
-Customize the following to correspond to the actions the sensor picks up:
-
-              @Override
-                public void onGestureUp(CameraGestureSensor caller, long gestureLength) {
-                    Log.i(TAG, "Up");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(YourActivity.this, "Hand Motion Up", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-                @Override
-                public void onGestureDown(CameraGestureSensor caller, long gestureLength) {
-                    Log.i(TAG, "Down");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(YourActivity.this, "Hand Motion Down", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                }
-
-                @Override
-                public void onGestureLeft(CameraGestureSensor caller, long gestureLength) {
-                    Log.i(TAG, "Left");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(YourActivity.this, "Hand Motion Left", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-                @Override
-                public void onGestureRight(CameraGestureSensor caller, long gestureLength) {
-                    Log.i(TAG, "RIght");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(YourActivity.this, "Hand Motion Right", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-                
-                @Override
-                public void onSensorClick(ClickSensor caller) {
-                    Log.i(TAG, "Click");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.this, "CLICK!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-                
- Enjoy!
-
-Copyright 2014 Krittika D'Silva
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+9. The library is now usable in your project
